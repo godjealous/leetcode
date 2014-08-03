@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int atoi(const char *str) 
+    {
+        int n=strlen(str);
+        if(n==0) return 0;
+        while(*str==' ') str++;
+        int sign=1;
+        if(*str=='-'){str++;sign=-1;}
+        else if(*str=='+') str++;
+        long long ret=0;//may overflow if use int,abs(INT_MAX)<abs(INT_MIN)
+        while(*str>='0'&&*str<='9')
+        {
+            ret=ret*10+*str-'0';
+            if(ret>INT_MAX)//abs(INT_MAX)<abs(INT_MIN)
+                return sign==1?INT_MAX:INT_MIN;
+            str++;
+        }
+        return (int)sign*ret;
+    }
+};
