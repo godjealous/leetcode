@@ -17,7 +17,6 @@ public:
                     ret.push_back(max(i,mapping[target-numbers[i]])+1);
                     break;
                 }
-                
             }
         }
         return ret;
