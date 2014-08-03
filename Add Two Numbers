@@ -1,0 +1,34 @@
+class Solution {
+public:
+    ListNode *addTwoNumbers(ListNode *l1, ListNode *l2) {
+        if(l1==nullptr) return l2;
+        if(l2==nullptr) return l1;
+        ListNode* dummy=new ListNode(-1);
+        ListNode* ptr=dummy;
+        ListNode* p1=l1,*p2=l2;
+        int carry=0;
+        while(p1!=NULL||p2!=NULL)//mergeSort
+        {
+            int sum=carry+getSum(p1,p2);
+            if(sum>=10)
+                sum-=10,carry=1;
+            else
+                carry=0;
+            if(p1!=NULL)
+                p1=p1->next;
+            if(p2!=NULL)
+                p2=p2->next;
+            ptr->next=new ListNode(sum);
+            ptr=ptr->next;
+        }
+        if(carry==1)
+            ptr->next=new ListNode(1);
+        return dummy->next;
+    }
+    int getSum(ListNode* a,ListNode* b)
+    {
+        if(a==nullptr) return b->val;
+        else if(b==nullptr) return a->val;
+        else return a->val+b->val;
+    }
+};
