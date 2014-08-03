@@ -1,4 +1,4 @@
 leetcode
 ========
 
-leetcode 151 code
+leetcode 151 problems
