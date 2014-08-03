@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x<0) return false;
+        if(x<10) return true;
+        vector<char> str=itoa(x);
+        int n=str.size();
+        int head=0,tail=n-1;
+        while(head<tail)
+        {
+            if(str[head++]!=str[tail--])
+                return false;
+        }
+        return true;
+    }
+    vector<char> itoa(int x)
+    {
+        int n=(log(x)/log(10))+1;
+        vector<char> ret(n);
+        int tail=n-1;
+        while(tail>=0)
+        {
+            ret[tail--]=x%10;
+            x=x/10;
+        }
+        return ret;
+    }
+};
