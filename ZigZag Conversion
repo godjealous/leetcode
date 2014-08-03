@@ -1,0 +1,29 @@
+class Solution {
+public:
+    string convert(string s, int nRows) {
+        int n=s.size();if(n==0) return s;
+        if(nRows<=1) return s;
+        string ret;
+        for(int i=1;i<=nRows;i++)
+        {
+            int a=2*(i-1);
+            int b=2*(nRows-i);
+            int start=i-1;
+            if(start<n)ret+=s[start];//n may longer than length of s
+            while(start<n)
+            {
+                if(b!=0) 
+                {
+                    start+=b;
+                    if(start<n) ret+=s[start];
+                }
+                if(a!=0) 
+                {
+                    start+=a;
+                    if(start<n) ret+=s[start];
+                }
+            }
+        }
+        return ret;
+    }
+};
