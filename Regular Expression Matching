@@ -1,0 +1,21 @@
+class Solution {
+public:
+    bool isMatch(const char *s, const char *p) {
+      if(*p==0) return *s==0;
+      if(*(p+1)!='*')
+      {
+          if(*s==*p||*p=='.'&&*s!=0) return isMatch(s+1,p+1);
+          else return false;
+      }
+      else
+      {
+          int i=0;
+          while(*(s+i)==*p||*p=='.'&&*(s+i)!=0)
+          {
+            if(isMatch(s+i+1,p+2)) return true;
+            i++;
+          }
+          return isMatch(s,p+2);
+      }
+    }
+};
