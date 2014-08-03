@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n=s.size();
+        if(n==0) return 0;
+        if(n==1) return 1;
+        int maxlen=0;
+        vector<int> f(260,-1);
+        int len=0;
+        for(int i=0;i<n;i++)
+        {
+            if(f[s[i]]!=-1)
+            {
+                maxlen=max(maxlen,len);
+                i=f[s[i]];
+                len=0;
+                fill(f.begin(),f.end(),-1);
+            }
+            else
+            {
+                f[s[i]]=i;
+                len++;
+            }
+        }
+        return max(maxlen,len);
+    }
+};
