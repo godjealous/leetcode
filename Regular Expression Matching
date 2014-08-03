@@ -4,7 +4,7 @@ public:
       if(*p==0) return *s==0;
       if(*(p+1)!='*')
       {
-          if(*s==*p||*p=='.'&&*s!=0) return isMatch(s+1,p+1);
+          if(*s==*p||*p=='.'&&*s!=0) return isMatch(s+1,p+1);//determine whether *s==nullptr is important
           else return false;
       }
       else
