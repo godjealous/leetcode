@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> ret;
+        if(n<=0) return ret;
+        string s="";
+        generate(s,0,0,0,2*n,ret);
+        return ret;
+    }
+    void generate(string s,int l,int r,int cur,int cnt,vector<string>& ret)
+    {
+        if(l>cnt/2) return;// cut off
+        if(cur==cnt)
+            ret.push_back(s);
+        else
+        {
+            if(l>r)
+            {
+                string ls=s+")";
+                generate(ls,l,r+1,cur+1,cnt,ret);
+            }
+            string rs=s+"(";
+            generate(rs,l+1,r,cur+1,cnt,ret);
+        }
+    }
+};
