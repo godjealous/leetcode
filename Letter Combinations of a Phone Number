@@ -1,0 +1,40 @@
+class Solution {
+public:
+    Solution()
+    {
+        table.resize(12);
+        table[2].push_back("a");table[2].push_back("b");table[2].push_back("c");
+        table[3].push_back("d");table[3].push_back("e");table[3].push_back("f");
+        table[4].push_back("g");table[4].push_back("h");table[4].push_back("i");
+        table[5].push_back("j");table[5].push_back("k");table[5].push_back("l");
+        table[6].push_back("m");table[6].push_back("n");table[6].push_back("o");
+        table[7].push_back("p");table[7].push_back("q");table[7].push_back("r");table[7].push_back("s");
+        table[8].push_back("t");table[8].push_back("u");table[8].push_back("v");
+        table[9].push_back("w");table[9].push_back("x");table[9].push_back("y");table[9].push_back("z");
+    }
+    vector<string> letterCombinations(string digits) {
+        vector<string> ret;
+        int n=digits.size();
+        if(n==0||digits==""){ ret.push_back("");return ret;}
+        if(n==1)
+        {
+            for(auto elem:table[digits[0]-'0'])
+                ret.push_back(elem);
+        }
+        else
+        {
+            vector<string> buf=letterCombinations(digits.substr(1,n-1));
+            
+            for(auto letter:table[digits[0]-'0'])
+            {
+                for(auto elem:buf)
+                {
+                    ret.push_back(letter+elem);
+                }
+            }
+        }
+        return ret;
+    }
+ private:
+    vector<vector<string> > table;
+};
