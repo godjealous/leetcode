@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int search(int A[], int n, int target) {
+        if(n==0) return -1;
+        return rotate(A,0,n,target);
+    }
+    int rotate(int* A,int x,int y,int target)
+    {
+        if(x>=y) return -1;
+        int mid=x+((y-x)>>1);
+        if(A[mid]==target) return mid;
+        else if(A[mid]>A[x])
+        {
+            if(target>A[mid])
+            {
+                return rotate(A,mid+1,y,target);
+            }
+            else
+            {
+                int idx1=rotate(A,x,mid,target);
+                if(idx1!=-1) return idx1;
+                else return rotate(A,mid+1,y,target);
+                
+            }
+        }
+        else
+        {
+            if(target<A[mid])
+            {
+                return rotate(A,x,mid,target);
+            }
+            else
+            {
+                int idx1=rotate(A,x,mid,target);
+                if(idx1!=-1) return idx1;
+                else return rotate(A,mid+1,y,target);
+            }
+        }
+        
+    }
+};
