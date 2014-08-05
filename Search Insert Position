@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int searchInsert(int A[], int n, int target) {
+        if(n==0) return 0;
+        return lower_bound(A,0,n,target);
+    }
+    int lower_bound(int A[],int x,int y,int target)
+    {
+        while(x<y)
+        {
+            int mid=x+((y-x)>>1);
+            if(A[mid]<target)
+                x=mid+1;
+            else
+                y=mid;
+        }
+        return x;
+    }
+};
