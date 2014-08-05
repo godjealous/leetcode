@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int removeElement(int A[], int n, int elem) {
+        if(n==0) return 0;
+        if(n==1&&A[0]==elem) return 0;
+        int tail=n;
+        int i=0;
+        while(i<tail)
+        {
+            while(A[i]==elem&&i<tail)
+                swap(A[i],A[--tail]);
+            if(i>=tail) break;
+            i++;
+        }
+        return i;
+    }
+};
