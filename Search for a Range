@@ -1,0 +1,39 @@
+class Solution {
+public:
+    vector<int> searchRange(int A[], int n, int target) {
+        vector<int>ret(2,-1);
+        if(n<=0) return ret;
+        int l=lower_bound(A,n,target);
+        int u=upper_bound(A,n,target);
+        if(u>l) ret[0]=l,ret[1]=u-1;
+        return ret;
+    }
+    int lower_bound(int A[],int n,int target)
+    {
+        if(n<=0) return -1;
+        int x=0,y=n;
+        while(x<y)
+        {
+            int mid=x+((y-x)>>1);
+            if(A[mid]>=target)
+                y=mid;
+            else
+                x=mid+1;
+        }
+        return x;
+    }
+    int upper_bound(int A[],int n,int target)
+    {
+        if(n<=0) return -1;
+        int x=0,y=n;
+        while(x<y)
+        {
+            int mid=x+((y-x)>>1);
+            if(A[mid]>target)
+                y=mid;
+            else
+                x=mid+1;
+        }
+        return x;
+    }
+};
