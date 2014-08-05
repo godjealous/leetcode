@@ -1,0 +1,28 @@
+class Solution {
+public:
+    vector<int> findSubstring(string S, vector<string> &L) 
+    {
+        vector<int> ret;
+        if(L.empty()) return ret;
+        int word_len=L[0].size();
+        int dict_len=L.size();
+        map<string,int> dict_map;
+        for(auto str:L)
+            dict_map[str]++;
+        map<string,int> count;
+        for(int i=0;i+word_len*dict_len-1<S.size();i++)
+        {
+            count.clear();
+            int j;
+            for(j=0;j<dict_len;j++)
+            {
+                string str=S.substr(i+j*word_len,word_len);
+                if(dict_map.count(str)==0) break;
+                count[str]++;
+                if(count[str]>dict_map[str]) break;
+            }
+            if(j==dict_len) ret.push_back(i);
+        }
+        return ret;
+    }
+};
