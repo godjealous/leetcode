@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int divide(int dividend, int divisor) {
+        long long a=dividend>0?dividend:-(long long)dividend;
+        long long b=divisor>0?divisor:-(long long)divisor;
+        int ret=0;
+        while(a>=b)
+        {
+            long long c=b;
+            int i=0;
+            while(a>=c)
+            {
+                a=a-c;
+                ret+=1<<i;
+                i++;
+                c=c<<1;
+            }
+        }
+        return ((dividend^divisor)>>31)==0?ret:-ret;
+    }
+};
