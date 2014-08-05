@@ -1,0 +1,26 @@
+class Solution {
+public:
+    void nextPermutation(vector<int> &num) {
+        int n=num.size();
+        if(n==0&&n==1) return;
+        int tail=n-1;
+        while(tail>0&&num[tail]<=num[tail-1])
+            tail--;
+        if(tail==0)
+        {
+            reverse(num.begin(),num.end());
+            return;
+        }
+        int start=tail-1;
+        int i=n-1;
+        for(;i>start;i--)
+        {
+            if(num[i]>num[start])
+                break;
+        }
+        swap(num[i],num[start]);
+        int head=start+1,tai=n-1;
+        while(head<tai)
+            swap(num[head++],num[tai--]);
+    }
+};
