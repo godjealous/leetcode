@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int removeDuplicates(int A[], int n) {
+        if(n==0) return 0;
+        if(n==1) return 1;
+        int idx=0,head=1;
+        while(head<n)
+        {
+            if(A[head]==A[idx]) head++;
+            else A[++idx]=A[head++];
+        }
+        return idx+1;
+    }
+};
