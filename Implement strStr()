@@ -1,0 +1,30 @@
+class Solution {
+public:
+    char *strStr(char *haystack, char *needle) {
+        int nsrc=strlen(haystack);
+        int ndes=strlen(needle);
+        if(ndes==0) return haystack;
+        if(nsrc==0||nsrc<ndes) return nullptr;
+        for(int i=0;i<nsrc;i++)
+        {
+            if(haystack[i]==needle[0])
+            {
+                if(contain(haystack+i,needle)!=nullptr)
+                    return haystack+i;
+            }
+        }
+        return nullptr;
+    }
+    char* contain(char* src,char* des)
+    {
+        int nsrc=strlen(src);
+        int ndes=strlen(des);
+        if(nsrc==0||ndes==0||nsrc<ndes) return nullptr;
+        for(int i=0;i<ndes;i++)
+        {
+            if(src[i]!=des[i])
+                return nullptr;
+        }
+        return src;
+    }
+};
