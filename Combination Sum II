@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<int> > combinationSum2(vector<int> &num, int target) {
+        vector<vector<int> > ret;
+        if(num.empty()) return ret;
+        sort(num.begin(),num.end());
+        ret=combination(num,0,target);
+        sort(ret.begin(),ret.end());
+        ret.erase(unique(ret.begin(),ret.end()),ret.end());
+        return ret;
+    }
+    vector<vector<int> > combination(vector<int>&num,int cur,int target)
+    {
+        vector<vector<int> > ret;
+        int n=num.size();
+        if(cur==n||target<num[cur]) return ret;
+        if(target==num[cur])
+        {
+            vector<int> elem(1,target);
+            ret.push_back(elem);
+        }
+        else
+        {
+            vector<vector<int> > partsum=combination(num,cur+1,target);
+            if(!partsum.empty())for(auto elem:partsum)
+            {
+                ret.push_back(elem);
+            }
+            partsum=combination(num,cur+1,target-num[cur]);
+            if(!partsum.empty())for(auto elem:partsum)
+            {
+                elem.insert(elem.begin(),num[cur]);
+                ret.push_back(elem);
+            }
+        }
+        return ret;
+    }
+};
