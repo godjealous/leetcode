@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string countAndSay(int n) {
+        string s="1";
+        for(int i=1;i<n;i++)
+            s=getNext(s);
+        return s;
+    }
+    string getNext(string s)
+    {
+        string ret;
+        int n=s.size();
+        int i=0;
+        while(i<n)
+        {
+            int j=i;
+            while(j<n&&s[j]==s[i])
+                j++;
+            int count=j-i;
+            ret+=count+'0';
+            ret+=s[i];
+            i=j;
+        }
+        return ret;
+    }
+};
