@@ -1,0 +1,44 @@
+class Solution {
+public:
+    string multiply(string num1, string num2) {
+        reverse(num1.begin(),num1.end());
+        reverse(num2.begin(),num2.end());
+        vector<int> a=convert(num1);
+        vector<int> b=convert(num2);
+        vector<int> ret(num1.size()+num2.size(),0);
+        for(int i=0;i<num1.size();i++)
+        {
+            for(int j=0;j<num2.size();j++)
+            {
+                ret[i+j]+=a[i]*b[j];
+                if(ret[i+j]>=10)
+                {
+                    ret[i+j+1]+=ret[i+j]/10;
+                    ret[i+j]=ret[i+j]%10;
+                }
+            }
+        }
+        return convertback(ret);
+        
+    }
+    vector<int> convert(string str)
+    {
+        vector<int> ret;
+        for(auto s:str) ret.push_back(s-'0');
+        return ret;
+    }
+    string convertback(vector<int> num)
+    {
+        string ret;
+        int i;
+        for(i=num.size()-1;i>=0;i--)
+            if(num[i]!=0) break;
+        if(i<0) return "0";
+        else
+        {
+            for(int j=i;j>=0;j--)
+                ret+=num[j]+'0';
+        }
+        return ret;
+    }
+};
