@@ -1,0 +1,42 @@
+class Solution {
+public:
+    vector<vector<int> > combinationSum(vector<int> &candidates, int target) 
+    {
+        vector<vector<int> > ret;
+        int n=candidates.size();
+        if(n==0) return ret;
+        sort(candidates.begin(),candidates.end());
+        ret=combination(candidates,0,target);
+        return ret;
+    }
+    vector<vector<int> > combination(vector<int>& candidates,int cur,int target)
+    {
+        vector<vector<int> > ret;
+        int n=candidates.size();
+        if(cur==n||target<candidates[cur]) return ret;
+        if(target==candidates[cur]) 
+        {
+            vector<int> elem(1,target);
+            ret.push_back(elem);
+        }
+        else
+        {
+            vector<vector<int> > partsum=combination(candidates,cur,target-candidates[cur]);
+            if(!partsum.empty())
+            {
+                for(auto elem:partsum)
+                {
+                    elem.insert(elem.begin(),candidates[cur]);
+                    ret.push_back(elem);
+                }
+            }
+            partsum=combination(candidates,cur+1,target);
+            if(!partsum.empty())
+            {
+                for(auto elem:partsum)
+                    ret.push_back(elem);
+            }
+        }
+        return ret;
+    }
+};
