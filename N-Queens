@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<vector<string> > solveNQueens(int n) {
+        vector<vector<string> > ret;
+        if(n==0) return ret;
+        vector<int> f(n,0);
+        solve(f,0,n,ret);
+        return ret;
+    }
+    void solve(vector<int>&f,int cur,int n,vector<vector<string> >&ret)
+    {
+        if(cur==n)
+        {
+            vector<string> elem(n,string(n,'.'));
+            for(int i=0;i<n;i++)
+                elem[i][f[i]]='Q';
+            ret.push_back(elem);
+        }
+        else
+        {
+            for(int pos=0;pos<n;pos++)
+            {
+                bool can=true;
+                for(int i=0;i<cur;i++)
+                {
+                    if(f[i]==pos||abs(f[i]-pos)==abs(i-cur))
+                    {
+                        can=false;
+                        break;
+                    }
+                }
+                if(can)
+                {
+                    f[cur]=pos;
+                    solve(f,cur+1,n,ret);
+                }
+            }
+        }
+    }
+};
