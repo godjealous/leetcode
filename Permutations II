@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<vector<int> > permuteUnique(vector<int> &num) {
+        vector<vector<int> > ret;
+        int n=num.size();if(n==0) return ret;
+        sort(num.begin(),num.end());
+        vector<int> f(n);
+        permutation(num,0,n,f,ret);
+        return ret;
+    }
+    void permutation(vector<int>& num,int cur,int n,vector<int>& f,vector<vector<int> >& ret)
+    {
+        if(cur==n)
+        {
+            ret.push_back(f);
+        }
+        else
+        {
+            for(int i=0;i<n;i++)
+            {
+                if(i!=0&&num[i]==num[i-1]) continue;
+                int target=num[i];
+                int nused=0,ntotal=0;
+                for(int j=0;j<cur;j++)
+                    if(f[j]==target) nused++;
+                for(int j=0;j<n;j++)
+                    if(num[j]==target) ntotal++;
+                if(nused<ntotal)
+                {
+                    f[cur]=target;
+                    permutation(num,cur+1,n,f,ret);
+                }
+                
+            }
+        }
+    }
+};
