@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<string> anagrams(vector<string> &strs) 
+    {
+        vector<string> ret;
+        int n=strs.size();if(n==0) return ret;
+        vector<string> buf(strs);
+        for(int i=0;i<buf.size();i++)
+            sort(buf[i].begin(),buf[i].end());
+        map<string,vector<int> > hash;
+        for(int i=0;i<buf.size();i++)
+        {
+            if(hash.find(buf[i])==hash.end())
+            {
+                vector<int> elem(1,i);
+                hash.insert(make_pair(buf[i],elem));
+            }
+            else
+                hash[buf[i]].push_back(i);
+        }
+        for(auto idx:hash)
+        {
+            if(idx.second.size()>=2)
+            {
+                for(auto i:idx.second)
+                {
+                    ret.push_back(strs[i]);
+                }
+            }
+        }
+        return ret;
+    }
+};
