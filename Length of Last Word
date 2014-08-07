@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int lengthOfLastWord(const char *s) {
+        int n=strlen(s);
+        if(n==0) return 0;
+        int j=n-1;
+        while(j>=0&&s[j]==' ')
+        {
+            j--;n--;
+        }
+        if(j<0) return 0;
+        for(;j>=0;j--)
+            if(s[j]==' ')
+                break;
+        return n-1-j+1-1;
+    }
+};
