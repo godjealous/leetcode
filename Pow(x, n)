@@ -1,0 +1,29 @@
+class Solution {
+public:
+    double pow(double x, int n) {//be careful that n can be negative
+        if(n==0) return 1;
+        if(n==1) return x;
+        if(n==-1) return (double) 1/x;
+        if(x==1) return 1;
+        if(x==-1)
+        {
+            if(n%2!=0) return -1;
+            else return 1;
+        }
+        if(x==0) return 0;
+        int sign=1;
+        if(n<0) sign=0;
+        n=abs(n);
+        double ret=nn(x,n);
+        if(sign==0) return (double) 1/ret;
+        else return ret;
+    }
+    double nn(double x,int n)
+    {
+        if(n==1) return x;
+        int t=(n>>1);
+        double ret=nn(x,t);
+        if(n&1==1) return ret*ret*x;
+        else return ret*ret;
+    }
+};
