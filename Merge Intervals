@@ -1,0 +1,30 @@
+
+class Solution {
+public:
+    static bool cmp(const Interval& a,const Interval& b)
+    {
+        return a.start<b.start;
+    }
+    vector<Interval> merge(vector<Interval> &intervals) {
+        vector<Interval> ret;
+        if(intervals.empty()) return ret;
+        sort(intervals.begin(),intervals.end(),cmp);
+        for(auto inter:intervals)
+        {
+            if(ret.empty()||ret[ret.size()-1].end<inter.start)
+                ret.push_back(inter);
+            else
+            {
+                while(!ret.empty()&&ret[ret.size()-1].end>=inter.start)
+                {
+                    Interval& rr=ret[ret.size()-1];
+                    ret.pop_back();
+                    inter.start=min(inter.start,rr.start);
+                    inter.end=max(inter.end,rr.end);
+                }
+                ret.push_back(inter);
+            }
+        }
+        return ret;
+    }
+};
