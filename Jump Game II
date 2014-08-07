@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int jump(int A[], int n) {
+        int nstep=0;
+        int left=0,right=0;
+        if(n==1) return 0;
+        while(left<=right)
+        {
+            nstep++;
+            int newright=right;
+            for(int i=left;i<=right;i++)
+            {
+                newright=max(newright,i+A[i]);
+            }
+            if(newright>=n-1) return nstep;
+            left=right+1;
+            right=newright;
+        }
+        return 0;
+    }
+};
