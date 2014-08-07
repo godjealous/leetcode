@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int totalNQueens(int n) {
+        if(n==0) return 0;
+        if(n==1) return 1;
+        vector<int> f(n,0);
+        int ret=0;
+        permutation(f,0,n,ret);
+        return ret;
+    }
+    void permutation(vector<int>& f,int cur,int n,int&ret)
+    {
+        if(cur==n)
+            ret+=1;
+        else
+        {
+            for(int pos=0;pos<n;pos++)
+            {
+                bool find=true;
+                for(int i=0;i<cur;i++)
+                {
+                    if(f[i]==pos||abs(i-cur)==abs(f[i]-pos))
+                    {
+                        find=false;break;
+                    }
+                }
+                if(find)
+                {
+                    f[cur]=pos;
+                    permutation(f,cur+1,n,ret);
+                }
+            }
+        }
+    }
+};
