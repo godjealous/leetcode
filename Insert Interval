@@ -1,0 +1,37 @@
+class Solution {
+public:
+    vector<Interval> insert(vector<Interval> &intervals, Interval newInterval) {
+        vector<Interval> ret;
+        if(intervals.empty())
+        {
+            ret.push_back(newInterval);
+            return ret;
+        }
+        list<Interval> intervals_copy;
+        for(auto inter:intervals)
+            intervals_copy.push_back(inter);
+        auto it=intervals_copy.begin();
+        while(it!=intervals_copy.end())
+        {
+            if(newInterval.end<it->start)
+            {
+                intervals_copy.insert(it,newInterval);
+                break;
+            }
+            else if(it->end<newInterval.start)
+            {
+                it++;continue;
+            }
+            else
+            {
+                newInterval.start=min(newInterval.start,it->start);
+                newInterval.end=max(newInterval.end,it->end);
+                it=intervals_copy.erase(it);
+            }
+        }
+        if(it==intervals_copy.end()) intervals_copy.push_back(newInterval);
+        for(auto inter:intervals_copy)
+            ret.push_back(inter);
+        return ret;
+    }
+};
