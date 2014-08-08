@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string getPermutation(int n, int k) {
+        int total=1;
+        string ret;
+        vector<int> f(n,0);
+        for(int i=1;i<=n;i++)
+        {
+            f[i-1]=i;
+            total*=i;
+        }
+        k--;
+        for(int i=n;i>=1;i--)
+        {
+            total=total/i;
+            int idx=k/total;
+            k=k%total;
+            ret+=f[idx]+'0';
+            f.erase(f.begin()+idx);
+        }
+        return ret;
+    }
+};
