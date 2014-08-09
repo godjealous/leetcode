@@ -1,0 +1,31 @@
+class Solution {
+public:
+    string simplifyPath(string path) {
+        string ret;
+        vector<string> stk;
+        int n=path.size();
+        if(n==0) return "";
+        for(auto i=path.begin();i<path.end();)
+        {
+            i++;
+            auto j=find(i,path.end(),'/');
+            string str=string(i,j);
+            if(str!=""&&str!=".")
+            {
+                if(str=="..")
+                {
+                    if(!stk.empty()) stk.pop_back();
+                }
+                else
+                    stk.push_back(str);
+            }
+            i=j;
+        }
+        if(stk.empty()) return "/";
+        else
+        {
+            for(auto dir:stk) ret+="/"+dir;
+        }
+        return ret;
+    }
+};
