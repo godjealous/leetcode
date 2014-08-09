@@ -1,0 +1,47 @@
+class Solution {
+public:
+    string minWindow(string S, string T) {
+        int expected[256];
+        int hasfound[256];
+        memset(expected,0,sizeof(expected));
+        memset(hasfound,0,sizeof(hasfound));
+        for(int i=0;i<T.size();i++)
+            expected[T[i]]++;
+        int head=0,tail=0;
+        int n=S.size();
+        int cnt=0;
+        int minlen=INT_MAX;
+        int idx=-1;
+        while(1)
+        {
+            while(tail<n&&cnt<T.size())
+            {
+                if(hasfound[S[tail]]<expected[S[tail]])
+                {
+                    cnt++;hasfound[S[tail]]++;
+                }
+                else if(expected[S[tail]]!=0)
+                    hasfound[S[tail]]++;
+                if(cnt==T.size()) break;
+                tail++;
+            }
+            if(tail==n) break;
+            while(expected[S[head]]==0||hasfound[S[head]]>expected[S[head]])
+            {
+                if(hasfound[S[head]]>expected[S[head]]) hasfound[S[head]]--;
+                head++;
+            }
+            if(tail-head+1<minlen)
+            {
+                minlen=tail-head+1;
+                idx=head;
+            }
+            tail++;if(tail==n) break;
+            hasfound[S[head]]--;
+            head++;cnt--;
+        }
+        if(idx==-1) return "";
+        return S.substr(idx,minlen);
+        
+    }
+};
