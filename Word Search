@@ -1,0 +1,40 @@
+class Solution {
+public:
+    bool exist(vector<vector<char> > &board, string word) {
+        int m=board.size();if(m==0) return false;
+        int n=board[0].size();if(n==0) return false;
+        int nw=word.size();
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(board[i][j]==word[0])
+                {
+                    board[i][j]='.';//change it to '.' to prevent visit twice
+                    if(findword(board,i,j,word.substr(1,nw-1),m,n)) return true;
+                    board[i][j]=word[0];//change back
+                }
+            }
+        }
+        return false;
+    }
+    bool findword(vector<vector<char> >&board,int x,int y,string word,int m,int n)
+    {
+        int dx[]={0,0,1,-1};
+        int dy[]={1,-1,0,0};
+        int nw=word.size();
+        if(nw==0) return true;
+        for(int i=0;i<4;i++)
+        {
+            int newx=x+dx[i];
+            int newy=y+dy[i];
+            if(newx>=0&&newx<m&&newy>=0&&newy<n&&board[newx][newy]==word[0])
+            {
+                board[newx][newy]='.';
+                if(findword(board,newx,newy,word.substr(1,nw-1),m,n)) return true;
+                board[newx][newy]=word[0];
+            }
+        }
+        return false;
+    }
+};
