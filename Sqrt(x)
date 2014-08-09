@@ -1,0 +1,13 @@
+class Solution {
+public:
+    int sqrt(int x) {
+        if(x<=0) return 0;
+        int root=1;
+        while(root<=x/root)//use divided to prevent overflow
+            root=root<<1;
+        root=root>>1;
+        while(root<=x/root)
+            root++;
+        return root-1;
+    }
+};
