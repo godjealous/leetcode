@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<vector<int> > combine(int n, int k) {
+        vector<vector<int> > ret;
+        if(n<k) return ret;
+        if(k==0) return ret;
+        if(k==1)
+        {
+            for(int i=1;i<=n;i++)
+            {
+                vector<int> elem(1,i);
+                ret.push_back(elem);
+            }
+        }
+        else
+        {
+            vector<vector<int> > include=combine(n-1,k-1);
+            vector<vector<int> > exclude=combine(n-1,k);
+            if(include.size()!=0)
+            {
+                for(auto elem:include)
+                {
+                    elem.push_back(n);
+                    ret.push_back(elem);
+                }
+            }
+            if(exclude.size()!=0)
+            {
+                for(auto elem:exclude)
+                    ret.push_back(elem);
+            }
+        }
+        return ret;
+    }
+};
