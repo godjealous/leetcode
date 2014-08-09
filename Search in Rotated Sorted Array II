@@ -1,0 +1,35 @@
+class Solution {
+public:
+    bool search(int A[], int n, int target) {
+        if(n==0) return false;
+        return searchArray(A,0,n,target);
+    }
+    bool searchArray(int A[],int x,int y,int target)
+    {
+        if(x>=y) return false;
+        
+        int mid=x+((y-x)>>1);
+        if(A[mid]==target) return true;
+        if(A[mid]>A[x])
+        {
+            if(target<A[mid])
+                return searchArray(A,x,mid,target)||searchArray(A,mid+1,y,target);
+            else
+                return searchArray(A,mid+1,y,target);
+        }
+        else if(A[mid]<A[x])
+        {
+            if(target>A[mid])
+                return searchArray(A,x,mid,target)||searchArray(A,mid+1,y,target);
+            else
+                return searchArray(A,x,mid,target);
+        }
+        else
+        {
+            for(int i=x;i<y;i++)
+                if(target==A[i])
+                    return true;
+            return false;
+        }
+    }
+};
