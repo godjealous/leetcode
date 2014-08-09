@@ -1,0 +1,42 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int> > &matrix) {
+        int m=matrix.size();if(m==0) return;
+        int n=matrix[0].size();if(n==0) return;
+        int x=-1,y=-1;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    x=i;y=j;
+                }
+            }
+        }
+        if(x==-1&&y==-1) return;
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    matrix[i][y]=0;
+                    matrix[x][j]=0;
+                }
+            }
+        }
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(i==x||j==y) continue;
+                if(matrix[i][y]==0||matrix[x][j]==0)
+                    matrix[i][j]=0;
+            }
+        }
+        for(int i=0;i<n;i++) matrix[x][i]=0;
+        for(int i=0;i<m;i++) matrix[i][y]=0;
+        
+    }
+};
