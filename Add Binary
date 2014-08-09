@@ -1,0 +1,32 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int na=a.size();int nb=b.size();
+        if(na==0) return b;
+        if(nb==0) return a;
+        int carry=0;
+        int pa=na-1,pb=nb-1;
+        string ret;
+        while(pa>=0||pb>=0)
+        {
+            int sum=0;
+            if(pa>=0&&pb>=0)
+                sum=a[pa]-'0'+b[pb]-'0'+carry;
+            else if(pa>=0)
+                sum=a[pa]-'0'+carry;
+            else
+                sum=b[pb]-'0'+carry;
+            if(sum==3||sum==1)
+                ret.insert(ret.begin(),'1');
+            else
+                ret.insert(ret.begin(),'0');
+            if(sum>=2) carry=1;
+            else carry=0;
+            if(pa>=0) pa--;
+            if(pb>=0) pb--;
+        }
+        if(carry==1)
+          ret.insert(ret.begin(),'1');
+        return ret;
+    }
+};
