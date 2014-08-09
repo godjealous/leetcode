@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<string> fullJustify(vector<string> &words, int L) {
+        vector<string> ret;
+        if(words.empty()) return ret;
+        stack<string> q;
+        int sumlen=0;
+        int i=0;
+        int n=words.size();
+        for(int i=0;i<n;)
+        {
+            string elem="";   
+            while(i<n&&(q.empty()||sumlen+words[i].size()<=L))
+            {
+                q.push(words[i]);
+                sumlen+=words[i++].size()+1;
+            }
+            if(i==n)
+            {
+                while(!q.empty())
+                {
+                    elem=q.top()+elem;
+                    q.pop();
+                    if(q.empty()) break;
+                    elem=" "+elem;
+                }
+                while(elem.size()<L) elem+=" ";
+                ret.push_back(elem);
+                continue;
+            }
+            if(q.size()==1)
+            {
+                elem=q.top();q.pop();
+                while(elem.size()<L) elem+=" ";
+                ret.push_back(elem);
+                sumlen=0;
+                continue;
+            }
+            int nspace=L-sumlen+q.size();
+            while(!q.empty())
+            {
+                elem=q.top()+elem;
+				int ns;
+                if(q.size()!=1) ns=nspace/(q.size()-1);
+				else ns=0;
+				q.pop();
+                for(int j=0;j<ns;j++)
+                    elem=" "+elem;
+                nspace-=ns;
+            }
+            ret.push_back(elem);
+            sumlen=0;
+        }
+        return ret;
+    }
+};
