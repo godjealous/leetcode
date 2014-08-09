@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int> > subsets(vector<int> &S) {
+        vector<vector<int> > ret;
+        int n=S.size();
+        if(n==0)
+        {
+            vector<int> elem;ret.push_back(elem);
+            return ret;
+        }
+        sort(S.begin(),S.end());
+        for(int subset=0;subset<(1<<n);subset++)
+        {
+            vector<int> elem;
+            for(int i=0;i<n;i++)
+            {
+                if(subset&(1<<i))
+                    elem.push_back(S[i]);
+            }
+            ret.push_back(elem);
+        }
+        return ret;
+    }
+};
