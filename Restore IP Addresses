@@ -1,0 +1,48 @@
+class Solution {
+public:
+    vector<string> restoreIpAddresses(string s) {
+        int n=s.size();
+        vector<string> ret;
+        if(n<4) return ret;
+        return restore(s,1);
+    }
+    vector<string> restore(string s,int nstep)
+    {
+        vector<string> ret;
+        if(s=="") return ret;
+        if(nstep==4)
+        {
+            if(!isvalid(s)) return ret;
+            else
+            {
+                ret.push_back(s);
+                return ret;
+            }
+        }
+        else
+        {
+            for(int i=1;i<=3;i++)
+            {
+                if(i>s.size()) break;
+                string word=s.substr(0,i);
+                if(isvalid(word))
+                {
+                    auto buf=restore(s.substr(i,s.size()-i),nstep+1);
+                    for(auto elem:buf)
+                        ret.push_back(word+"."+elem);
+                }
+            }
+            return ret;
+        }
+    }
+    bool isvalid(string s)
+    {
+        int n=s.size();
+        if(n==0||n>4) return false;
+        if(n==1) return true;
+        if(s[0]=='0') return false;
+        int num=atoi(s.c_str());
+        if(num<=255) return true;
+        else return false;
+    }
+};
