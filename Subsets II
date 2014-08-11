@@ -1,0 +1,34 @@
+class Solution {
+public:
+    vector<vector<int> > subsetsWithDup(vector<int> &S) 
+    {
+        vector<vector<int> > ret;
+        int n=S.size();
+        if(n==0) return ret;
+        map<int,int> hash;
+        for(int i=0;i<n;i++)
+            hash[S[i]]++;
+        vector<pair<int,int> >buf;
+        vector<int> line;
+        for(auto elem:hash)
+            buf.push_back(elem);
+        subset(buf,line,0,buf.size(),ret);
+        return ret;
+    }
+    void subset(vector<pair<int,int> >& buf,vector<int>& line,int cur,int n,vector<vector<int> >&ret)
+    {
+        if(cur==n)
+            ret.push_back(line);
+        else
+        {
+            subset(buf,line,cur+1,n,ret);
+            for(int i=0;i<buf[cur].second;i++)
+            {
+                line.push_back(buf[cur].first);
+                subset(buf,line,cur+1,n,ret);
+            }
+            for(int i=0;i<buf[cur].second;i++)
+                line.pop_back();
+        }
+    }
+};
