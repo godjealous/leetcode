@@ -1,0 +1,20 @@
+class Solution {// merge from the tail
+public:
+    void merge(int A[], int m, int B[], int n) {
+        if(n==0) return;
+        if(m==0)
+        {
+            for(int i=0;i<n;i++)
+                A[i]=B[i];
+        }
+        int tail=m+n-1;
+        int ap=m-1,bp=n-1;
+        while(tail>=0)
+        {
+            if(ap<0||bp>=0&&A[ap]<B[bp])
+                A[tail--]=B[bp--];
+            else
+                A[tail--]=A[ap--];
+        }
+    }
+};
