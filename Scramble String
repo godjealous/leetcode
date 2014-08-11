@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isScramble(string s1, string s2) {
+        int n=s1.size();
+        if(n!=s2.size()) return false;
+        vector<vector<vector<int> > >f(n,vector<vector<int> >(n,vector<int>(n+1,0)));
+        for(int r=1;r<=n;r++)
+        {
+            for(int i=0;i+r-1<n;i++)
+            {
+                for(int j=0;j+r-1<n;j++)
+                {
+                    if(r==1)
+                    {
+                        if(s1[i]==s2[j])
+                            f[i][j][r]=1;
+                    }
+                    else if(s1.substr(i,r)==s2.substr(j,r))
+                    {
+                        f[i][j][r]=1;
+                    }
+                    else
+                    {
+                        for(int k=1;k<r;k++)
+                        {
+                            if(f[i][j][k]==1&&f[i+k][j+k][r-k]==1||f[i][j+r-k][k]==1&&f[i+k][j][r-k]==1)
+                            {
+                                f[i][j][r]=1;break;
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+        return f[0][0][n];
+    }
+};
