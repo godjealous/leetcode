@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int numDecodings(string s) {
+        int n=s.size();
+        if(n==0) return 0;
+        vector<int> f(n+1,0);
+        f[0]=1;
+        for(int i=1;i<=n;i++)
+        {
+            if(s[i-1]!='0') f[i]+=f[i-1];
+            if(i-1-1>=0&&isValid(s.substr(i-1-1,2))) f[i]+=f[i-2];
+        }
+        return f[n];
+    }
+    bool isValid(string s)
+    {
+        if(s[0]=='1'||s[0]=='2'&&s[1]>='0'&&s[1]<='6')
+            return true;
+        return false;
+    }
+};
