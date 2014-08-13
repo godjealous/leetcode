@@ -1,0 +1,64 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode *> generateTrees(int n) {
+        vector<TreeNode*> ret;
+        if(n==0) {ret.push_back(NULL); return ret;}
+        return generate(1,n);
+        
+        
+    }
+    vector<TreeNode*> generate(int x,int y)
+    {
+        vector<TreeNode*> ret;
+        if(x==y) 
+        {
+            ret.push_back(new TreeNode(x));
+            return ret;
+        }
+        else
+        {
+            
+            vector<TreeNode*> r=generate(x+1,y);
+            for(int i=0;i<r.size();i++)
+            {
+                TreeNode* root=new TreeNode(x);
+                root->right=r[i];
+                ret.push_back(root);
+            }
+            
+            vector<TreeNode*> l=generate(x,y-1);
+            for(int i=0;i<l.size();i++)
+            {
+                TreeNode*root=new TreeNode(y);
+                root->left=l[i];
+                ret.push_back(root);
+            }
+            for(int i=x+1;i<=y-1;i++)
+            {
+                vector<TreeNode*> left=generate(x,i-1);
+                vector<TreeNode*> right=generate(i+1,y);
+                for(int m=0;m<left.size();m++)
+                {
+                    for(int n=0;n<right.size();n++)
+                    {
+                        TreeNode* root=new TreeNode(i);
+                        root->left=left[m];root->right=right[n];
+                        ret.push_back(root);
+                    }
+                }
+                
+            }
+            return ret;
+        }
+        
+    }
+};
