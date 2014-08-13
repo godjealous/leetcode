@@ -5,7 +5,7 @@ public:
         vector<int> f(n+2,-1);
         return num(n,f);
     }
-    int num(int n,vector<int>& f)
+    int num(int n,vector<int>& f)//memory search
     {
         if(n==0||n==1) return f[n]=1;
         if(f[n]!=-1) return f[n];
