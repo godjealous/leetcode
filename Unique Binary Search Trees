@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int numTrees(int n) {
+        if(n==0||n==1) return 1;
+        vector<int> f(n+2,-1);
+        return num(n,f);
+    }
+    int num(int n,vector<int>& f)
+    {
+        if(n==0||n==1) return f[n]=1;
+        if(f[n]!=-1) return f[n];
+        int sum=0;
+        for(int i=1;i<=n;i++)
+            sum+=num(i-1,f)*num(n-i,f);
+        return f[n]=sum;
+    }
+};
